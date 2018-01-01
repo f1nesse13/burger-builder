@@ -29,10 +29,12 @@ addIngredient = (type) => {
 
 
 removeIngredient = (type) => {
+      if (this.state.ingredients[type] > 0){
       const ingredientUpdate = {...this.state.ingredients}
        ingredientUpdate[type] -= 1
-       const updatedPrice = INGREDIENTS_PRICES[type] - this.state.totalPrice
+       const updatedPrice = this.state.totalPrice - INGREDIENTS_PRICES[type]
       this.setState({totalPrice: updatedPrice, ingredients: ingredientUpdate})
+}
 }
    
  render() {
@@ -46,7 +48,7 @@ removeIngredient = (type) => {
          <Auxiliary>
             <div> <Burger ingredients={this.state.ingredients} /> </div>
             <div> <BuildControls ingredientAdded={this.addIngredient} ingredientRemoved={this.removeIngredient}
-                  disabled={disabledInfo}  /> </div>
+                  disabled={disabledInfo} price={this.state.totalPrice}  /> </div>
             </Auxiliary>
       )
    }
